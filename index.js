@@ -12,7 +12,11 @@ app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
 
 io.on('connection', (socket) => {
     console.log('user connected ');
-    socket.on('chat message', msg => console.log('msg: ' + msg));
+    socket.on('chat message', msg => {
+        console.log('msg: ' + msg);
+        // io.emit('receive message', msg);
+        socket.broadcast.emit('receive message', msg);
+    });
     socket.on('disconnect', () => console.log('user disconnected'));
 });
 

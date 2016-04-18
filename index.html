@@ -2,9 +2,18 @@
 <html>
     <head>
         <title>Spooky Chat</title>
+        <style>
+            #snd-msg {
+                background: tan;
+            }
+            #rcvd-msg {
+                background: beige;
+            }
+        </style>
     </head>
     <body>
-        <ul id="messages"></ul>
+        <ul id="snd-msg"></ul>
+        <ul id="rcvd-msg"></ul>
         <form action="" name="msginput">
             <input id="msg" autocomplete="off" />
             <button>Send</button>
@@ -20,9 +29,19 @@
                 var msg = document.querySelector('#msg').value;
                 console.log(msg);
                 socket.emit('chat message', msg);
+
+                var list = document.createElement('li');
+                list.innerHTML = msg;
+                document.querySelector('#snd-msg').appendChild(list);
+
                 document.querySelector('#msg').value = '';
                 return false;
             };
+            socket.on('receive message', function(msg) {
+                var list = document.createElement('li');
+                list.innerHTML = msg;
+                document.querySelector('#rcvd-msg').appendChild(list);
+            });
         </script>
     </body>
 </html>
