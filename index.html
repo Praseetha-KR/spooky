@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Spooky Chat</title>
+    </head>
+    <body>
+        <ul id="messages"></ul>
+        <form action="">
+            <input id="msg" autocomplete="off" />
+            <button>Send</button>
+        </form>
+
+        <script src="/scripts/socket.io-client/socket.io.js"></script>
+        <script>
+            var socket = io();
+        </script>
+    </body>
+</html>
+
