@@ -1,0 +1,27 @@
+{
+  "name": "spooky",
+  "version": "0.0.1",
+  "description": "Chat app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Praseetha-KR/spooky.git"
+  },
+  "keywords": [
+    "chat",
+    "websocket",
+    "react"
+  ],
+  "author": "Praseetha-KR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Praseetha-KR/spooky/issues"
+  },
+  "homepage": "https://github.com/Praseetha-KR/spooky#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
