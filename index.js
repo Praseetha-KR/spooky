@@ -8,7 +8,8 @@ var io = require('socket.io')(http);
 var PORT = 3300;
 
 app.use('/scripts', express.static(__dirname + '/node_modules/'));
-app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
+app.use('/views', express.static(__dirname + '/views/'));
+app.get('/', (req, res) => res.sendFile(__dirname + '/views/chat.html'));
 
 io.on('connection', (socket) => {
     console.log('user connected ');

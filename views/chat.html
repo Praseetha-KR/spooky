@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Spooky Chat</title>
+        <style>
+            #snd-msg {
+                background: yellow;
+            }
+            #rcvd-msg {
+                background: beige;
+            }
+        </style>
+        <script src="../scripts/react/dist/react.js"></script>
+        <script src="../scripts/react-dom/dist/react-dom.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+        <script type="text/babel" src="../views/chat.js"></script>
+    </head>
+    <body>
+        <ul id="snd-msg"></ul>
+        <ul id="rcvd-msg"></ul>
+        <form action="" name="msginput">
+            <input id="msg" autocomplete="off" />
+            <button>Send</button>
+        </form>
+
+        <div id="test"></div>
+
+        <script src="../scripts/socket.io-client/socket.io.js"></script>
+        <script>
+            'use strict';
+
+            var socket = io();
+            document.msginput.onsubmit = function() {
+                //debugger;
+                var msg = document.querySelector('#msg').value;
+                console.log(msg);
+                socket.emit('chat message', msg);
+
+                var list = document.createElement('li');
+                list.innerHTML = msg;
+                document.querySelector('#snd-msg').appendChild(list);
+
+                document.querySelector('#msg').value = '';
+                return false;
+            };
+            socket.on('receive message', function(msg) {
+                var list = document.createElement('li');
+                list.innerHTML = msg;
+                document.querySelector('#rcvd-msg').appendChild(list);
+            });
+        </script>
+    </body>
+</html>
+
