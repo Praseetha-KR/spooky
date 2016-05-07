@@ -29,29 +29,63 @@ var MessageList = React.createClass({
             </div>
         )
     }
-})
+});
+
+var MessageInput = React.createClass({
+    getInitialState: function() {
+        return { text: '' };
+    },
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var message = {
+            text: this.state.text,
+            sender: this.props.sender
+        }
+        this.props.onMessageSubmit(message);
+        this.setState({ text: '' });
+    },
+    changeHandle: function(e) {
+        this.setState({ text: e.target.value });
+    },
+    render: function() {
+        return (
+            <div className="messageInput">
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        onChange={this.changeHandle}
+                        value={this.state.text}
+                    />
+                </form>
+            </div>
+        )
+    }
+});
+
 var ChatApp = React.createClass({
-    getData: function() {
-        return [
-            {
-                text: 'Lumos 🔦',
-                sender: 'Harry'
-            },
-            {
-                text: 'Wingardium leviosa 🍃',
-                sender: 'Hermione'
-            },
-            {
-                text: 'Avada kedavra 👿🐍💎',
-                sender: 'Voldemort'
-            }
-        ]
+    getInitialState: function() {
+        return {
+            text: '',
+            messages: [],
+            sender: 'spooky'
+        }
+    },
+    handleMessageSubmit: function(message) {
+        var {messages} = this.state;
+        messages.push(message);
+        this.setState({messages});
+        // send socket msg
     },
     render: function() {
         return (
             <div className="chatApp">
                 Welcome to Spooky chat!
-                <MessageList messages={this.getData()} />
+                <MessageList
+                    messages={this.state.messages}
+                />
+                <MessageInput
+                    onMessageSubmit={this.handleMessageSubmit}
+                    sender={this.state.sender}
+                />
             </div>
         )
     }
